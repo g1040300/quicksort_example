@@ -1,0 +1,55 @@
+package quicksort_1;
+
+public class quicksort {
+	
+	static int[] paixu = {1,2,6,9,8,1,6,8}; //宣告數字陣列
+	
+	public static void quickSort(int A[], int low, int high) 
+	{
+		int pivot; //宣告中樞點
+		if (high > low) {
+			pivot = Partition(A, low, high);//回傳中樞點
+			//以中樞點分兩邊做遞迴呼叫
+			quickSort(A, low, pivot - 1);
+			quickSort(A, pivot + 1, high);
+		}
+	}
+	
+	private static int Partition(int A[], int low, int high) {
+		int left, right, pivot_item = A[low];//建立兩個指標和中樞位置
+		left = low;
+		right = high;
+		while (left < right) {
+			// Move left while item < pivot
+			while (A[left] <= pivot_item)
+				left++;
+			// Move right while item > pivot
+			while (A[right] > pivot_item)
+				right--;
+			//swap A[left] A[right]  while A[right] < pivot
+			if (left < right)
+				swap(A, left, right);
+		}
+		// right is final position for the pivot
+		A[low] = A[right];
+		A[right] = pivot_item;
+		return right;
+	}
+
+	private static void swap(int[] A, int left, int right) {
+		int temp = 0;
+		temp = A[left];
+		A[left] = A[right];
+		A[right] = temp;
+	}
+
+	public static void main(String[] args) {
+		//主程式
+		quickSort(paixu, 0, 7); //呼叫quickSort
+		//印出陣列
+		for (int i = 0; i < paixu.length; i++) {
+			System.out.print(paixu[i] + ", ");
+		}
+	}
+
+}
